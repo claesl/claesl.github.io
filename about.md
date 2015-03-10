@@ -3,8 +3,6 @@ layout: page
 title: About
 permalink: /about/
 ---
-### About
-
 I work as a Network Consultant and Architect for a Cisco Gold Partner in Sweden working on enterprise networks. Main responsibility areas are core routing/switching and data center fabrics with over 6 years experience of designing and deploying highly scalable networks. 
 
 ### Disclaimer
