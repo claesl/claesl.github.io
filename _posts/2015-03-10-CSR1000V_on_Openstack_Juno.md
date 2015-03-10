@@ -27,6 +27,7 @@ root@controller:~# nova flavor-create CSR1K 6 4096 0 4
 Import CSR1000V image to Glance repository.
 
 Here we import it as the demo tenant.
+
 ```
 root@controller:~# source /home/tdc/demo-openrc.sh
 root@controller:~# glance image-create --name CSR1KV-3-14 --disk-format qcow2 --container-format bare --file csr1000v-universalk9.03.14.01.S.155-1.S1-std.qcow2 --property hw_vif_model=virtio --property hw_disk_bus=virtio --property hw_cdrom_bus=ide
@@ -61,6 +62,7 @@ Create three networks
 We will disable DHCP and Gateway on all the network and let the CSR1000V do those functions later.
 
 Management network - 12.1.1.0/24
+
 ```
 root@controller:~# source /home/tdc/demo-openrc.sh
 root@controller:~# neutron net-create demo-mgmt
@@ -97,7 +99,9 @@ Created a new subnet:
 | tenant_id         | be6dd690a9de4ca0adc065f2c86aea65           |
 +-------------------+--------------------------------------------+
 ```
+
 Internal network 12.1.2.0/24
+
 ```
 root@controller:~# neutron net-create demo-internal
 Created a new network:
@@ -133,7 +137,9 @@ Created a new subnet:
 | tenant_id         | be6dd690a9de4ca0adc065f2c86aea65           |
 +-------------------+--------------------------------------------+
 ```
+
 External network 12.1.3.0/24
+
 ```
 root@controller:~# neutron net-create demo-external
 Created a new network:
@@ -169,6 +175,7 @@ Created a new subnet:
 | tenant_id         | be6dd690a9de4ca0adc065f2c86aea65           |
 +-------------------+--------------------------------------------+
 ```
+
 Now we will create some ports for the CSR1000V on each of the networks.
 
 ```
@@ -230,6 +237,7 @@ Created a new port:
 | tenant_id             | be6dd690a9de4ca0adc065f2c86aea65                                                |
 +-----------------------+---------------------------------------------------------------------------------+
 ```
+
 Virtual machines in Openstack can't connect directly to the external network. Due to this restriction the CSR1000V will have to connect to the demo-external network. On that network the router-1 will be default gateway doing the NAT and routing so the CSR1000V can reach Internet.
 
 Let's create router-1 and connect it to demo-external and ext-net (our public network) network.
@@ -253,6 +261,7 @@ Added interface ef9105d4-8ce5-472f-847e-8a921e59448e to router router-1.
 root@controller:~# neutron router-gateway-set router-1 ext-net
 Set gateway for router router-1
 ```
+
 And last we create the CSR1000V instance
 
 ```
@@ -299,7 +308,9 @@ root@controller:~# nova list
 | e4902047-b5ef-4a40-82b7-2205852c8725 | csr1000v-01 | ACTIVE | -          | Running     | demo-mgmt=12.1.1.1; demo-external=12.1.3.1; demo-internal=12.1.2.1 |
 +--------------------------------------+-------------+--------+------------+-------------+--------------------------------------------------------------------+
 ```
+
 Lets create a host on the internal network.
+
 ```
 root@controller:~# nova boot --image cirros-0.3.3-x86_64  --flavor m1.tiny  --nic net-id=dfad0409-7b05-468b-bdd1-d044a04def39 internal-vm01
 +--------------------------------------+------------------------------------------------------------+
