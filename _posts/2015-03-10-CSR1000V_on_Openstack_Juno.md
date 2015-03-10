@@ -1,3 +1,8 @@
+---
+layout: post
+title: Cisco CSR1000V on Openstack Juno
+---
+
 ## Installation notes
 
 Using the following guide: 
